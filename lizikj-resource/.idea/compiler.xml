@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="lizikj-fs" />
+        <module name="lizikj-resource-api" />
+        <module name="lizikj-resource-fs" />
+        <module name="lizikj-resource-provider" />
+        <module name="lizikj-resource-qiniu" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="lizikj-fs" target="1.8" />
+      <module name="lizikj-resource" target="1.8" />
+      <module name="lizikj-resource-api" target="1.8" />
+      <module name="lizikj-resource-fs" target="1.8" />
+      <module name="lizikj-resource-provider" target="1.8" />
+      <module name="lizikj-resource-qiniu" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

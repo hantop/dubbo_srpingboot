@@ -1,0 +1,100 @@
+<thymeleaf xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+           th:fragment="base_script" th:remove="tag">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
+    
+	<!-- basic styles -->
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}"/>
+	
+	<!-- plugin styles -->
+	<link rel="stylesheet" th:href="@{/assets/css/jquery-ui-1.10.3.full.min.css}"/>
+	<link rel="stylesheet" th:href="@{/assets/css/datepicker.css}"/>
+	<link rel="stylesheet" th:href="@{/assets/css/ui.jqgrid.css}"/>
+	<link rel="stylesheet" th:href="@{/assets/plugin/bootstrapvalidator/css/bootstrapValidator.min.css}"/>
+	<link rel="stylesheet" th:href="@{/assets/plugin/alert/BeAlert.css}"/>
+	
+	<!--[if IE 7]>
+	  <link rel="stylesheet" th:href="@{/assets/css/font-awesome-ie7.min.css}"/>
+	<![endif]-->
+	
+	<!-- ace styles -->
+	<link rel="stylesheet" th:href="@{/assets/css/ace.min.css}"/>
+	<link rel="stylesheet" th:href="@{/assets/css/ace-rtl.min.css}"/>
+	<link rel="stylesheet" th:href="@{/assets/css/ace-skins.min.css}"/>
+	
+	<!--[if lte IE 8]>
+	  <link rel="stylesheet" th:href="@{/assets/css/ace-ie.min.css}"/>
+	<![endif]-->
+	
+	<!-- inline styles related to this page -->
+	<script th:src="@{/assets/js/ace-extra.min.js}"></script>
+	
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script th:src="@{/assets/js/html5shiv.js}"></script>
+	<script th:src="@{/assets/js/respond.min.js}"></script>
+	<![endif]-->
+	
+	<script th:src="@{/assets/js/jquery-2.0.3.min.js}"></script>
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/js/typeahead-bs2.min.js}"></script>
+	
+	<!-- ace scripts -->
+	<script th:src="@{/assets/js/ace-elements.min.js}"></script>
+	<script th:src="@{/assets/js/ace.min.js}"></script>
+	
+	<!-- datepicker -->
+	<script th:src="@{/assets/js/date-time/bootstrap-datepicker.min.js}"></script>
+	
+	<!-- jqGrid -->
+	<script th:src="@{/assets/js/jqGrid/jquery.jqGrid.min.js}"></script>
+	<script th:src="@{/assets/js/jqGrid/i18n/grid.locale-cn.js}"></script>
+	
+	<!-- dataTables -->
+	<script th:src="@{/assets/js/dataTables/jquery.dataTables.js}"></script>
+	<script th:src="@{/assets/js/dataTables/jquery.dataTables.bootstrap.js}"></script>
+	<script th:src="@{/assets/js/dataTables/TableTools/js/dataTables.tableTools.js}"></script>
+    <script th:src="@{/assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js}"></script>
+    
+    <!-- handlebars -->
+    <script th:src="@{/assets/plugin/handlebars-v3.0.1.js}"></script>
+    
+    <!-- bootstrapvalidator -->
+    <script th:src="@{/assets/plugin/bootstrapvalidator/js/bootstrapValidator.min.js}"></script>
+    <script th:src="@{/assets/plugin/bootstrapvalidator/js/language/zh_CN.js}"></script>
+    
+    <!-- messager -->
+    <script th:src="@{/assets/plugin/alert/BeAlert.js}"></script>
+	
+	<script>
+		//datatables语言设置 
+		var lang= {
+				"sLengthMenu": "每页显示 _MENU_条",
+				"sZeroRecords": "没有找到符合条件的数据",
+				"sInfo": "当前第 _START_ - _END_ 条　共计 _TOTAL_ 条",
+				"sInfoEmpty": "没有记录",
+				"sInfoFiltered": "(从 _MAX_ 条记录中过滤)",  
+				"sSearch": "搜索：",
+				"oPaginate": {
+					"sFirst": "首页",  
+					"sPrevious": "前一页",  
+					"sNext": "后一页",
+					"sLast": "尾页"
+				}
+			};
+	</script>
+	
+	<script id="tpl" type="text/x-handlebars-template">
+    {{#each func}}
+    <button type="button" class="btn btn-{{this.type}} btn-xs" onclick="{{this.fn}}">{{this.name}}</button>
+    {{/each}}
+	</script>
+	<script>
+		var tpl = $("#tpl").html();
+		//预编译模板
+		var template = Handlebars.compile(tpl);
+	</script>
+</thymeleaf>

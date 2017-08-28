@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>计划任务系统</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">计划任务</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">首页</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login">登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container clearfix" style="margin-top: 80px;">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>启动时间</th>
+            <th>结束时间</th>
+            <th>持续时间(ms)</th>
+            <th>状态</th>
+            <th>IP地址</th>
+            <th>线程名称</th>
+            <th>异常</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="execHistory : ${execHistories}">
+            <td scope="row" th:text="${execHistory.id}"></td>
+            <td th:text="${#calendars.format(execHistory.startedAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
+            <td th:text="${#calendars.format(execHistory.finishedAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
+            <td th:text="${execHistory.duration}"></td>
+            <td th:if="${execHistory.status == 1}" style="color:#5cb85c">成功</td>
+            <td th:if="${execHistory.status == 2}" style="color:#d9534f;">失败</td>
+            <td th:if="${execHistory.status == 3}" style="color:#f0ad4e">否决</td>
+            <td th:text="${execHistory.ipAddr}"></td>
+            <td th:text="${execHistory.threadName}"></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

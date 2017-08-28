@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lizikj.resource.api.dao.ITMediaDao">
+  <resultMap id="BaseResultMap" type="com.lizikj.resource.api.dto.TMediaDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mediaType" jdbcType="VARCHAR" property="mediaType" />
+    <result column="mediaName" jdbcType="VARCHAR" property="mediaName" />
+    <result column="mediaPath" jdbcType="VARCHAR" property="mediaPath" />
+    <result column="createTime" jdbcType="DATETIME" property="createTime" />
+    <result column="qiniuKey" jdbcType="VARCHAR" property="qiniuKey" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,mediaName,mediaType,mediaPath,createTime,qiniuKey,account,source
+  </sql>
+  
+  <insert id="insert" parameterType="com.lizikj.resource.api.dto.TMediaDto">
+    insert into t_media (id, mediaType, mediaName,
+      mediaPath, createTime,qiniuKey,account,source)
+    values (
+     #{id,jdbcType=INTEGER},
+     #{mediaType,jdbcType=VARCHAR},
+     #{mediaName,jdbcType=VARCHAR},
+      #{mediaPath,jdbcType=VARCHAR},
+      #{createTime,jdbcType=DATETIME},
+      #{qiniuKey,jdbcType=VARCHAR},
+      #{account,jdbcType=VARCHAR},
+      #{source,jdbcType=VARCHAR})
+  </insert>
+  <select id="findOne" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM t_media
+    WHERE id=#{id}
+  </select>
+  <select id="findAll" resultType="java.util.List">
+    select
+    <include refid="Base_Column_List"/>
+    from t_media
+  </select>
+</mapper>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>计划任务系统</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">计划任务</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">首页</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login">登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container clearfix" style="margin-top: 80px;">
+    <div class="pull-right">
+        <button type="button" class="btn btn-default">停止计划任务</button>
+        <button type="button" class="btn btn-default">启动计划任务</button>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Job Name</th>
+            <th>Job Group Name</th>
+            <th>Cron</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cronJob : ${cronJobs}">
+            <td scope="row" th:text="${cronJob.id}"></td>
+            <td th:text="${cronJob.jobName}"></td>
+            <td th:text="${cronJob.jobGroup}"></td>
+            <td th:text="${cronJob.triggerCron}"></td>
+            <td th:text="${cronJob.jobDescription}"></td>
+            <td>
+                <a type="button" class="btn btn-info btn-sm" th:href="@{/cron/resumeJob(jobName=${cronJob.jobName}, jobGroupName=${cronJob.jobGroup})}">Resume</a>
+                <a type="button" class="btn btn-info btn-sm" th:href="@{/cron/pauseJob(jobName=${cronJob.jobName}, jobGroupName=${cronJob.jobGroup})}">Pause</a>
+                <a type="button" class="btn btn-info btn-sm" th:href="@{/cron/getTriggerState(triggerName=${cronJob.triggerName}, triggerGroupName=${cronJob.triggerGroup})}">State</a>
+                <a type="button" class="btn btn-info btn-sm" th:href="@{'/cron/view/'+${cronJob.id}}">History</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

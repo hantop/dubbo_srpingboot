@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <context id="mysqlGenerator" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+            <property name="suppressDate" value="false"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://120.77.0.148:3306/mdtx_cron?useUnicode=true&amp;characterEncoding=UTF-8"  userId="mdtx_admin" password="123456" />
+        <javaModelGenerator targetPackage="com.lizikj.cron.dao.model.cron" targetProject="src\main\java" />
+        <sqlMapGenerator targetPackage="mybatis.cron" targetProject="src\main\resources" />
+        <javaClientGenerator targetPackage="com.lizikj.cron.dao.mapper.cron" targetProject="src\main\java" type="XMLMAPPER" />
+
+        <!--<table tableName="cron_job" domainObjectName="CronJob" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="exec_history" domainObjectName="ExecHistory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <table tableName="cron_client" domainObjectName="CronClient" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <appender name="RollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>/logs/mindai-cron-job.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/logs/mindai-cron-job.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>3000</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="LOGSTASH" class="com.cwbase.logback.RedisAppender">
+		<source>mindai-cron-job</source>
+		<type>service</type>
+		<host>192.168.1.199</host>
+		<port>6379</port>
+		<key>logstash</key>
+	</appender>
+
+	<appender name="LOGSTASHPROD" class="com.cwbase.logback.RedisAppender">
+		<source>mindai-cron-job</source>
+		<type>service</type>
+		<host>192.168.168.21</host>
+		<port>6379</port>
+		<key>logstash</key>
+	</appender>
+
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="LOGSTASH"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="RollingFileAppender"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="RollingFileAppender"/>
+            <!--<appender-ref ref="LOGSTASHPROD"/>-->
+        </root>
+    </springProfile>
+
+    <logger name="com.lizikj.cron" additivity="true" level="DEBUG"/>
+
+</configuration>

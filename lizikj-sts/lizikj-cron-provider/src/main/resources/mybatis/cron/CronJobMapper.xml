@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lizikj.cron.dao.mapper.cron.CronJobMapper">
+  <resultMap id="BaseResultMap" type="com.lizikj.cron.dao.model.cron.CronJob">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="job_group" jdbcType="VARCHAR" property="jobGroup" />
+    <result column="job_class_name" jdbcType="VARCHAR" property="jobClassName" />
+    <result column="job_description" jdbcType="VARCHAR" property="jobDescription" />
+    <result column="trigger_name" jdbcType="VARCHAR" property="triggerName" />
+    <result column="trigger_group" jdbcType="VARCHAR" property="triggerGroup" />
+    <result column="trigger_cron" jdbcType="VARCHAR" property="triggerCron" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="TRIGGER_STATE" jdbcType="VARCHAR" property="triggerState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, job_name, job_group, job_class_name, job_description, trigger_name, trigger_group, 
+    trigger_cron, status, update_time, create_time
+  </sql>
+ 
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cron_job
+    where status = #{status,jdbcType=TINYINT}
+  </select>
+  
+  <select id="findCronInfoList" resultMap="BaseResultMap">
+        SELECT 
+       		c.id, c.job_name, c.job_group, c.job_class_name, c.trigger_name,c.job_description, c.trigger_group, 
+   			c.trigger_cron, c.status,m.TRIGGER_STATE
+        from cron_job c left join LZ_TRIGGERS m on c.job_name=m.JOB_NAME
+        <where>
+        	<if test="status!=null">c.status=#{status}</if>
+        </where>
+        order by c.id
+    </select>
+    
+    <select id="findById" resultMap="BaseResultMap">
+    	SELECT 
+    	<include refid="Base_Column_List"/>
+        from cron_job where id=#{id}
+    </select>
+    
+    <select id="findByIds" resultMap="BaseResultMap">
+    	SELECT 
+    	<include refid="Base_Column_List"/>
+        from cron_job where id in(#{ids})
+    </select>
+    
+    <insert id="insertCronInfo" parameterType="com.lizikj.cron.dao.model.cron.CronJob" useGeneratedKeys="true" keyProperty="id">
+    	insert into cron_job
+    	<trim prefix="(" suffix=")" suffixOverrides=",">
+    		<if test="jobName!=null">job_name,</if>
+    		<if test="jobGroup!=null">job_group,</if>
+    		<if test="jobClassName!=null">job_class_name,</if>
+    		<if test="jobDescription!=null">job_description,</if>
+    		<if test="triggerName!=null">trigger_name,</if>
+    		<if test="triggerGroup!=null">trigger_group,</if>
+    		<if test="triggerCron!=null">trigger_cron,</if>
+    		<if test="status!=null">status,</if>
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides=",">
+    		<if test="jobName!=null">#{jobName},</if>
+    		<if test="jobGroup!=null">#{jobGroup},</if>
+    		<if test="jobClassName!=null">#{jobClassName},</if>
+    		<if test="jobDescription!=null">#{jobDescription},</if>
+    		<if test="triggerName!=null">#{triggerName},</if>
+    		<if test="triggerGroup!=null">#{triggerGroup},</if>
+    		<if test="triggerCron!=null">#{triggerCron},</if>
+    		<if test="status!=null">#{status},</if>
+    	</trim>
+    </insert>
+    
+    <update id="updateCronInfo" parameterType="com.lizikj.cron.dao.model.cron.CronJob">
+    	update cron_job
+    	<set>
+    		<if test="jobName!=null">job_name=#{jobName},</if>
+    		<if test="jobGroup!=null">job_group=#{jobGroup},</if>
+    		<if test="jobClassName!=null">job_class_name=#{jobClassName},</if>
+    		<if test="jobDescription!=null">job_description=#{jobDescription},</if>
+    		<if test="triggerName!=null">trigger_name=#{triggerName},</if>
+    		<if test="triggerGroup!=null">trigger_group=#{triggerGroup},</if>
+    		<if test="triggerCron!=null">trigger_cron=#{triggerCron},</if>
+    		<if test="status!=null">status=#{status},</if>
+    	</set>
+    	where id=#{id}
+    </update>
+    
+    <update id="deleteCronInfo">
+    	delete from cron_job where id=#{id}
+    </update>
+</mapper>

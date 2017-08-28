@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//autotest/script/lizidata.py=utf8
+encoding//autotest/script/liziutil.py=utf8
+encoding//autotest/script/test_hfive_getShopConfig.py=utf8
+encoding//autotest/script/test_pos_login.py=utf8
